@@ -12,15 +12,9 @@ public class Project6 {
 		
 		try {
 			
-			// load driver
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// create the connection
-			
-			String url = "jdbc:mysql://localhost:3306/jdbc_learning";
-			String user = "root";
-			String pass = "Akib@123";
-			con = DriverManager.getConnection(url, user, pass);
+			con = JdbcUtil.getConnection();
 			
 			// create statement
 			stmt = con.createStatement();
@@ -35,8 +29,6 @@ public class Project6 {
 			}
 			
 			
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}catch(Exception e) {
@@ -44,8 +36,7 @@ public class Project6 {
 		}finally {
 			// close the connection
 			try {
-				con.close();
-				stmt.close();
+				JdbcUtil.closeResources(con, stmt);
 				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
